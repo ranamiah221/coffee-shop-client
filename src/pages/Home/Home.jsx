@@ -13,7 +13,7 @@ const Home = () => {
              <Banner></Banner>
              <About></About>
              <SectionTitle title="Our Popular Products" subTitle='Sip & Savor'></SectionTitle>
-             <Link><div className='flex justify-center mt-5'>
+             <Link to='/addCoffee'><div className='flex justify-center mt-5'>
              <button className='bg-[#E3B577] p-2 text-white border-black border-2 inline-flex items-center'>Add Coffee <span><GiCoffeeCup /></span> </button></div></Link>
         </div>
     );
