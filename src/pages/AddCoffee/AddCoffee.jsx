@@ -1,9 +1,46 @@
 import { Link } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import Header from "../Home/Header";
+import Swal from "sweetalert2";
 
 const AddCoffee = () => {
+
+
+  const handleAddCoffee=(event)=>{
+    event.preventDefault();
+    const form = event.target;
+    const name=form.name.value;
+    const chef=form.chef.value;
+    const supplier= form.supplier.value;
+    const taste= form.taste.value;
+    const category= form.category.value;
+    const price= form.price.value;
+    const photo= form.photo.value;
+    const coffees={name, chef, supplier, taste, category, price, photo}
+    fetch('http://localhost:5000/coffees',{
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify(coffees)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        if(data.insertedId){
+            Swal.fire({
+                title: "Thank you!",
+                text: "Coffee added successfully!",
+                icon: "success"
+              });
+        }
+    })
+    
+  }
+
   return (
-    <div className="bg-[url('https://i.ibb.co.com/Ksd4sYD/1.png')] w-full h-screen font-Rancho">
+    <>
+    <Header></Header>
+     <div className="bg-[url('https://i.ibb.co.com/Ksd4sYD/1.png')] w-full h-screen font-Rancho">
       <div className="max-w-6xl mx-auto pt-5">
         <Link to="/">
           <div className="text-base font-medium text-black inline-flex items-center gap-2">
@@ -24,8 +61,8 @@ const AddCoffee = () => {
             distribution of letters, as opposed to using Content here.
           </p>
         </div>
-
-        <form class="card-body ">
+        {/* form.... */}
+        <form onSubmit={handleAddCoffee} class="card-body ">
             {/*name and chef   */}
           <div className=" flex items-center gap-5 px-10">
             <div class="form-control w-1/2">
@@ -98,12 +135,12 @@ const AddCoffee = () => {
             </div>
             <div class="form-control w-1/2">
               <label class="label">
-                <span class="label-text">Details</span>
+                <span class="label-text">Price</span>
               </label>
               <input
                 type="text"
-                placeholder="details"
-                name="details"
+                placeholder="price"
+                name="price"
                 class="input input-bordered w-full"
                 required
               />
@@ -127,12 +164,14 @@ const AddCoffee = () => {
           </div>
           {/* Button */}
            <div className="px-10 mt-5">
-           <button className="w-full btn bg-[#D2B48C] border-2 border-black hover:bg-amber-500">Add Coffee </button>
+           <button type="submit" className=" w-full btn bg-[#D2B48C] border-2 border-black hover:bg-amber-500">Add Coffee </button>
            </div>
 
         </form>
       </div>
     </div>
+    </>
+   
   );
 };
 
