@@ -6,6 +6,7 @@ import SectionTitle from '../../Shared/SectionTitle';
 import { Link, useLoaderData } from 'react-router-dom';
 import { GiCoffeeCup } from "react-icons/gi";
 import Coffee from '../../components/Coffee';
+import InstraImage from './InstraImage';
 
 const Home = () => {
     const loadedCoffees= useLoaderData();
@@ -24,6 +25,8 @@ const Home = () => {
                     coffees.map(coffee=> <Coffee key={coffee._id} coffee={coffee}></Coffee>)
                 }
              </div>
+            <SectionTitle subTitle='Follow Us Now' title='Follow on Instagram'></SectionTitle>
+           <InstraImage></InstraImage>
         </div>
     );
 };
