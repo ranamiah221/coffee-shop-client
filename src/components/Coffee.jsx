@@ -18,8 +18,9 @@ const Coffee = ({ coffee, handleDelete }) => {
         </div>
         <div className="mr-5 space-y-3">
             <Link to={`/coffees/${_id}`}><p className="text-xl text-white  font-bold w-10 p-2 rounded-lg bg-green-500"><FaEye></FaEye></p></Link>
-            <p className="text-xl text-white font-bold w-10 p-2 rounded-lg bg-[#3C393B]"><FaPenFancy /></p>
+            <Link to={`/update/${_id}`}><p className="text-xl text-white font-bold w-10 p-2 rounded-lg bg-[#3C393B] mt-3"><FaPenFancy /></p></Link>
             <p onClick={()=>handleDelete(_id)} className="text-xl text-white font-bold w-10 p-2 rounded-lg bg-red-500"><MdDeleteForever /></p>
+            
         </div>
       </div>
     </div>

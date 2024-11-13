@@ -1,44 +1,47 @@
-import { Link } from "react-router-dom";
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { Link, Navigate, useLoaderData, useNavigate } from "react-router-dom";
 import Header from "../Home/Header";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
-const AddCoffee = () => {
 
+const UpdateCoffee = () => {
+    const coffee = useLoaderData();
+    const {_id}=coffee;
 
-  const handleAddCoffee=(event)=>{
-    event.preventDefault();
-    const form = event.target;
-    const name=form.name.value;
-    const chef=form.chef.value;
-    const supplier= form.supplier.value;
-    const taste= form.taste.value;
-    const category= form.category.value;
-    const price= form.price.value;
-    const photo= form.photo.value;
-    const coffees={name, chef, supplier, taste, category, price, photo}
-    fetch('http://localhost:5000/coffees',{
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
-      },
-      body:JSON.stringify(coffees)
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        if(data.insertedId){
-            Swal.fire({
-                title: "Thank you!",
-                text: "Coffee added successfully!",
-                icon: "success"
-              });
-        }
-    })
-    
-  }
+    const handleUpdateCoffee=(event)=>{
+        event.preventDefault();
+        const form = event.target;
+        const name=form.name.value;
+        const chef=form.chef.value;
+        const supplier= form.supplier.value;
+        const taste= form.taste.value;
+        const category= form.category.value;
+        const price= form.price.value;
+        const photo= form.photo.value;
+        const updateCoffee={name, chef, supplier, taste, category, price, photo}
+        console.log("updateCoffee", updateCoffee);
+        fetch(`http://localhost:5000/coffees/${_id}`,{
+          method:'PUT',
+          headers:{
+            'content-type':'application/json'
+          },
+          body:JSON.stringify(updateCoffee)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.modifiedCount > 0){
+                Swal.fire({
+                    title: "Updated!",
+                    text: "Coffee Update successfully!",
+                    icon: "success"
+                  });
+            }
+        })
+        
+      }
 
-  return (
-    <>
+    return (
+        <>
     <Header></Header>
      <div className="bg-[url('https://i.ibb.co.com/Ksd4sYD/1.png')] w-full h-screen font-Rancho">
       <div className="max-w-6xl mx-auto pt-5">
@@ -49,10 +52,10 @@ const AddCoffee = () => {
           </div>
         </Link>
       </div>
-      <div className="max-w-6xl mx-auto bg-[#F4F3F0] py-10 mt-6 rounded-lg">
+      <div className="max-w-6xl mx-auto bg-[#90ac3994] py-10 mt-6 rounded-lg">
         <div className="w-3/5 mx-auto text-center mb-5">
           <h1 className="text-4xl font-normal mb-5">
-            <i>Add New Coffee</i>
+            <i>Update Coffee</i>
           </h1>
           <p className="">
             It is a long established fact that a reader will be distraceted by
@@ -62,7 +65,7 @@ const AddCoffee = () => {
           </p>
         </div>
         {/* form.... */}
-        <form onSubmit={handleAddCoffee} class="card-body ">
+        <form onSubmit={handleUpdateCoffee} class="card-body ">
             {/*name and chef   */}
           <div className=" flex items-center gap-5 px-10">
             <div class="form-control w-1/2">
@@ -73,6 +76,7 @@ const AddCoffee = () => {
                 type="text"
                 placeholder="coffee name"
                 name="name"
+                defaultValue={coffee.name}
                 class="input input-bordered w-full"
                 required
               />
@@ -85,6 +89,7 @@ const AddCoffee = () => {
                 type="text"
                 placeholder="chef"
                 name="chef"
+                defaultValue={coffee.chef}
                 class="input input-bordered w-full"
                 required
               />
@@ -100,6 +105,7 @@ const AddCoffee = () => {
                 type="text"
                 placeholder="Supplier"
                 name="supplier"
+                defaultValue={coffee.supplier}
                 class="input input-bordered w-full"
                 required
               />
@@ -112,6 +118,7 @@ const AddCoffee = () => {
                 type="text"
                 placeholder="taste"
                 name="taste"
+                defaultValue={coffee.taste}
                 class="input input-bordered w-full"
                 required
               />
@@ -129,6 +136,7 @@ const AddCoffee = () => {
                 type="text"
                 placeholder="category"
                 name="category"
+                defaultValue={coffee.category}
                 class="input input-bordered w-full"
                 required
               />
@@ -141,6 +149,7 @@ const AddCoffee = () => {
                 type="text"
                 placeholder="price"
                 name="price"
+                defaultValue={coffee.price}
                 class="input input-bordered w-full"
                 required
               />
@@ -156,7 +165,9 @@ const AddCoffee = () => {
                 type="text"
                 placeholder="photo url"
                 name="photo"
+                defaultValue={coffee.photo}
                 class="input input-bordered w-full"
+                readOnly
                 required
               />
             </div>
@@ -164,16 +175,14 @@ const AddCoffee = () => {
           </div>
           {/* Button */}
            <div className="px-10 mt-5">
-           <button type="submit" className=" w-full btn bg-[#D2B48C] border-2 border-black hover:bg-amber-500">Add Coffee </button>
+           <button type="submit" className=" w-full btn bg-[#23847c] text-white border-2 border-black hover:bg-amber-500">Update Coffee </button>
            </div>
 
         </form>
       </div>
     </div>
     </>
-   
-  );
+    );
 };
 
-export default AddCoffee;
-
+export default UpdateCoffee;
