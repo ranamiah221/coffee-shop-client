@@ -6,9 +6,10 @@ import img5 from '../../assets/coffee/cups/Rectangle 13.png';
 import img6 from '../../assets/coffee/cups/Rectangle 14.png';
 import img7 from '../../assets/coffee/cups/Rectangle 15.png';
 import img8 from '../../assets/coffee/cups/Rectangle 16.png';
+import 'animate.css';
 const InstraImage = () => {
     return (
-        <div className="grid grid-cols-4 gap-5 my-10">
+        <div className="grid grid-cols-4 gap-5 my-10 animate__animated animate__rotateIn animate__delay-2s animate__repeat-2">
             <div>
                 <img src={img1} alt="" />
             </div>

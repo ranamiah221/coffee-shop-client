@@ -1,7 +1,7 @@
 import { FaEye, FaPenFancy } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
-const Coffee = ({ coffee }) => {
+const Coffee = ({ coffee, handleDelete }) => {
   const { _id, name, chef, supplier, taste, category, price, photo } = coffee;
   return (
     <div className="card card-side bg-[#F5F4F1] shadow-xl w-full border border-black">
@@ -19,7 +19,7 @@ const Coffee = ({ coffee }) => {
         <div className="mr-5 space-y-3">
             <Link to={`/coffees/${_id}`}><p className="text-xl text-white  font-bold w-10 p-2 rounded-lg bg-green-500"><FaEye></FaEye></p></Link>
             <p className="text-xl text-white font-bold w-10 p-2 rounded-lg bg-[#3C393B]"><FaPenFancy /></p>
-            <p className="text-xl text-white font-bold w-10 p-2 rounded-lg bg-red-500"><MdDeleteForever /></p>
+            <p onClick={()=>handleDelete(_id)} className="text-xl text-white font-bold w-10 p-2 rounded-lg bg-red-500"><MdDeleteForever /></p>
         </div>
       </div>
     </div>

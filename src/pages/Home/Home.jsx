@@ -7,10 +7,28 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { GiCoffeeCup } from "react-icons/gi";
 import Coffee from '../../components/Coffee';
 import InstraImage from './InstraImage';
+import Swal from 'sweetalert2';
 
 const Home = () => {
     const loadedCoffees= useLoaderData();
     const [coffees, setCoffees]= useState(loadedCoffees)
+    const handleDelete=_id=>{
+        fetch(`http://localhost:5000/coffees/${_id}`,{
+            method : 'DELETE'
+        })
+        .then(res=> res.json())
+        .then(data =>{
+            if(data.deletedCount > 0){
+                   Swal.fire({
+                title: "Thank you!",
+                text: "Coffee delete successfully!",
+                icon: "success"
+              });
+            }
+           const remaining = coffees.filter(coffee=> coffee._id !== _id)
+           setCoffees(remaining);
+        })
+    }
     return (
         <div>
              <Header></Header>
@@ -22,7 +40,7 @@ const Home = () => {
              
              <div className='grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5'>
                 {
-                    coffees.map(coffee=> <Coffee key={coffee._id} coffee={coffee}></Coffee>)
+                    coffees.map(coffee=> <Coffee key={coffee._id} coffee={coffee} handleDelete={handleDelete}></Coffee>)
                 }
              </div>
             <SectionTitle subTitle='Follow Us Now' title='Follow on Instagram'></SectionTitle>
