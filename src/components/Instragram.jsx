@@ -13,7 +13,7 @@ const Instragram = () => {
     return (
         <>
             <SectionHeader header={'Follow on Instagram'} subHeader={'Follow Us Now'}></SectionHeader>
-            <div className="grid grid-cols-4 gap-5 px-64 py-5">
+            <div className="grid grid-cols-4 gap-5 py-5 px-64">
                     <img src={cup1} alt="" />
                     <img src={cup2} alt="" />
                     <img src={cup3} alt="" />
